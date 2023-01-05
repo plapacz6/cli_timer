@@ -18,6 +18,14 @@ extern "C" {
  */
 struct tm add_tm2nowtm(const struct tm tm1);
 
+/**
+ * @brief adds two struct tm structures
+ * 
+ * @param tm1 struct tm from <time.h>
+ * @param tm2 struct tm
+ * @return struct tm sum of tm1 and tm2 according to data-time rules
+ */
+struct tm add_tm2tm(const struct tm tm1, const struct tm tm2);
 
 
 #ifdef __cplusplus

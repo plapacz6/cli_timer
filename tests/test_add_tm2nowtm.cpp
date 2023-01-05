@@ -8,12 +8,15 @@ TEST_CASE("adding seconds", "[seconds]"){
   struct tm tm0;
   struct tm tm1;
   struct tm tm2;
+  struct tm tm3;
+
   time_t now;
   time(&now);
   tm0 = *localtime(&now);  //copy of interenal tm struct
 
   tm1 = tm0;
   tm2 = tm0;
+
 
   // tm1.tm_isdst =
   // tm1.tm_yday = 
@@ -45,9 +48,36 @@ TEST_CASE("adding seconds", "[seconds]"){
   // tm3.tm_min = tm1.tm_min;
   // tm3.tm_sec = tm1.tm_sec;
 
+  //struct tm add_tm2nowtm(const struct tm tm1);
+  //struct tm add_tm2tm(const struct tm tm1, const struct tm tm2);
+
   SECTION(""){
-    tm1.tm_sec
-    REQUIRE();
+    tm1.tm_min = 1;
+    tm2.tm_min = 1;
+    SECTION("borderline case 0+1"){
+      tm1.tm_sec = 0;
+      tm2.tm_sec = 1;
+
+      tm3 = add_tm2tm(tm1, tm2);
+      REQUIRE(tm3.tm_sec == 1);
+      REQUIRE(tm3.tm_min == tm2.tm_min);
+    };
+    SECTION("borderline case 59+1"){
+      tm1.tm_sec = 59;
+      tm2.tm_sec = 1;
+
+      tm3 = add_tm2tm(tm1, tm2);
+      REQUIRE(tm3.tm_sec == 0);
+      REQUIRE(tm3.tm_min == tm2.tm_min + 1);      
+    };
+    SECTION("borderline case 0+0"){
+      tm1.tm_sec = 0;
+      tm2.tm_sec = 0;
+
+      tm3 = add_tm2tm(tm1, tm2);
+      REQUIRE(tm3.tm_sec == 0);
+      REQUIRE(tm3.tm_min == tm2.tm_min);      
+    };    
   };
   
 };
