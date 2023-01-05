@@ -17,6 +17,219 @@ TEST_CASE("adding seconds", "[seconds]"){
   tm1 = tm0;
   tm2 = tm0;
 
+  tm2.tm_isdst = 0;
+  tm2.tm_yday = 1;
+  tm2.tm_wday = 1;
+  tm2.tm_year = 1;
+  tm2.tm_mon = 1;
+  tm2.tm_mday = 1;
+  tm2.tm_hour = 0;
+  tm2.tm_min = 0;
+  tm2.tm_sec = 0;
+
+///////////////////////////////// TO CORRRECT  vvvv            /////////////////////////////////
+  SECTION(""){
+    tm1.tm_min = 1;
+    tm2.tm_min = 1;
+    SECTION("borderline case 0+1"){
+      tm1.tm_sec = 0;
+      tm2.tm_sec = 1;
+
+      tm3 = add_tm2tm(tm1, tm2);
+      REQUIRE(tm3.tm_sec == 1);
+      REQUIRE(tm3.tm_min == tm2.tm_min);
+    };
+    SECTION("borderline case 59+1"){
+      tm1.tm_sec = 59;
+      tm2.tm_sec = 1;
+
+      tm3 = add_tm2tm(tm1, tm2);
+      REQUIRE(tm3.tm_sec == 0);
+      REQUIRE(tm3.tm_min == tm2.tm_min + 1);      
+    };
+    SECTION("borderline case 0+0"){
+      tm1.tm_sec = 0;
+      tm2.tm_sec = 0;
+
+      tm3 = add_tm2tm(tm1, tm2);
+      REQUIRE(tm3.tm_sec == 0);
+      REQUIRE(tm3.tm_min == tm2.tm_min);      
+    };    
+  };
+  
+};
+TEST_CASE("adding minuntes", "[minuntes]"){
+  struct tm tm0;
+  struct tm tm1;
+  struct tm tm2;
+  struct tm tm3;
+
+  time_t now;
+  time(&now);
+  tm0 = *localtime(&now);  //copy of interenal tm struct
+
+  tm1 = tm0;
+  tm2 = tm0;
+
+  tm2.tm_isdst = 0;
+  tm2.tm_yday = 1;
+  tm2.tm_wday = 1;
+  tm2.tm_year = 1;
+  tm2.tm_mon = 1;
+  tm2.tm_mday = 1;
+  tm2.tm_hour = 0;
+  tm2.tm_min = 0;
+  tm2.tm_sec = 0;
+
+  SECTION(""){
+    tm1.tm_hour = 1;
+    tm2.tm_hour = 1;
+    SECTION("borderline case 0+1"){
+      tm1.tm_min = 0;
+      tm2.tm_min = 1;
+
+      tm3 = add_tm2tm(tm1, tm2);
+      REQUIRE(tm3.tm_min == 1);
+      REQUIRE(tm3.tm_hour == tm2.tm_hour);
+    };
+    SECTION("borderline case 59+1"){
+      tm1.tm_min = 59;
+      tm2.tm_min = 1;
+
+      tm3 = add_tm2tm(tm1, tm2);
+      REQUIRE(tm3.tm_min == 0);
+      REQUIRE(tm3.tm_hour == tm2.tm_hour + 1);
+    };
+    SECTION("borderline case 0+0"){
+      tm1.tm_min = 0;
+      tm2.tm_min = 0;
+
+      tm3 = add_tm2tm(tm1, tm2);
+      REQUIRE(tm3.tm_min == 0);
+      REQUIRE(tm3.tm_hour == tm2.tm_hour);
+    };        
+  };
+};  
+
+TEST_CASE("adding hours", "[hours]"){
+  struct tm tm0;
+  struct tm tm1;
+  struct tm tm2;
+  struct tm tm3;
+
+  time_t now;
+  time(&now);
+  tm0 = *localtime(&now);  //copy of interenal tm struct
+
+  tm1 = tm0;
+  tm2 = tm0;
+
+  tm2.tm_isdst = 0;
+  tm2.tm_yday = 1;
+  tm2.tm_wday = 1;
+  tm2.tm_year = 1;
+  tm2.tm_mon = 1;
+  tm2.tm_mday = 1;
+  tm2.tm_hour = 0;
+  tm2.tm_min = 0;
+  tm2.tm_sec = 0;
+
+  SECTION(""){
+    tm1.tm_mday = 1;
+    tm2.tm_mday = 1;
+    SECTION("borderline case 0+1"){
+      tm1.tm_hour = 0;
+      tm2.tm_hour = 1;
+
+      tm3 = add_tm2tm(tm1, tm2);
+      REQUIRE(tm3.tm_hour == 1);
+      REQUIRE(tm3.tm_mday == tm2.tm_mday);
+    };
+    SECTION("borderline case 23+1"){      
+      tm1.tm_hour = 23;
+      tm2.tm_hour = 1;
+
+      tm3 = add_tm2tm(tm1, tm2);
+      REQUIRE(tm3.tm_hour == 0);
+      REQUIRE(tm3.tm_mday == tm2.tm_mday + 1);
+    };
+    SECTION("borderline case 0+0"){
+      tm1.tm_hour = 0;
+      tm2.tm_hour = 0;
+
+      tm3 = add_tm2tm(tm1, tm2);
+      REQUIRE(tm3.tm_hour == 0);
+      REQUIRE(tm3.tm_mday == tm2.tm_mday);
+    };        
+  };
+};
+
+TEST_CASE("adding days", "[days day_of_week day_of_year]"){
+  struct tm tm0;
+  struct tm tm1;
+  struct tm tm2;
+  struct tm tm3;
+
+  time_t now;
+  time(&now);
+  tm0 = *localtime(&now);  //copy of interenal tm struct
+
+  tm1 = tm0;
+  tm2 = tm0;
+
+  tm2.tm_isdst = 0;
+  tm2.tm_yday = 1;
+  tm2.tm_wday = 1;
+  tm2.tm_year = 1;
+  tm2.tm_mon = 1;
+  tm2.tm_mday = 1;
+  tm2.tm_hour = 0;
+  tm2.tm_min = 0;
+  tm2.tm_sec = 0;
+
+  SECTION(""){
+    tm1.tm_mon = 1;
+    tm2.tm_mon = 1;
+    SECTION("borderline case 0+1"){
+      tm1.tm_mday = 0;
+      tm2.tm_mday = 1;
+      tm1.tm_yday = 1;      
+//////////////////////////////////////////////////////////////////
+      tm3 = add_tm2tm(tm1, tm2);
+      REQUIRE(tm3.tm_mday == 1);
+      REQUIRE(tm3.tm_mon == tm2.tm_mon);
+      REQUIRE(tm3.tm_yday == tm2.tm_yday);
+      REQUIRE(tm3.tm_wday == tm2.tm_wday);      
+    };
+    SECTION("borderline case 31+1"){      
+      tm1.tm_mday = 31;
+      tm2.tm_mday = 1;
+
+      tm3 = add_tm2tm(tm1, tm2);
+      REQUIRE(tm3.tm_mday == 1);
+      REQUIRE(tm3.tm_mon == tm2.tm_mon + 1);
+      REQUIRE(tm3.tm_yday == tm2.tm_yday + 1);      
+    };
+    SECTION("borderline case 0+0"){
+      tm1.tm_mday = 0;
+      tm2.tm_mday = 0;
+
+      tm3 = add_tm2tm(tm1, tm2);
+      REQUIRE(tm3.tm_mday == 0);
+      REQUIRE(tm3.tm_mon == tm2.tm_mon);
+      REQUIRE(tm3.tm_yday == tm2.tm_yday);      
+    };        
+  };
+};
+
+///////////////////////////////// TO CORRRECT   ^^^^^^^^^            /////////////////////////////////
+TEST_CASE("adding month", "[month]"){
+
+};
+TEST_CASE("adding yeasr", "[years dist_year]"){
+};
+
+
 
   // tm1.tm_isdst =
   // tm1.tm_yday = 
@@ -50,51 +263,3 @@ TEST_CASE("adding seconds", "[seconds]"){
 
   //struct tm add_tm2nowtm(const struct tm tm1);
   //struct tm add_tm2tm(const struct tm tm1, const struct tm tm2);
-
-  SECTION(""){
-    tm1.tm_min = 1;
-    tm2.tm_min = 1;
-    SECTION("borderline case 0+1"){
-      tm1.tm_sec = 0;
-      tm2.tm_sec = 1;
-
-      tm3 = add_tm2tm(tm1, tm2);
-      REQUIRE(tm3.tm_sec == 1);
-      REQUIRE(tm3.tm_min == tm2.tm_min);
-    };
-    SECTION("borderline case 59+1"){
-      tm1.tm_sec = 59;
-      tm2.tm_sec = 1;
-
-      tm3 = add_tm2tm(tm1, tm2);
-      REQUIRE(tm3.tm_sec == 0);
-      REQUIRE(tm3.tm_min == tm2.tm_min + 1);      
-    };
-    SECTION("borderline case 0+0"){
-      tm1.tm_sec = 0;
-      tm2.tm_sec = 0;
-
-      tm3 = add_tm2tm(tm1, tm2);
-      REQUIRE(tm3.tm_sec == 0);
-      REQUIRE(tm3.tm_min == tm2.tm_min);      
-    };    
-  };
-  
-};
-TEST_CASE("adding minuntes", "[minuntes]"){
-
-};
-TEST_CASE("adding hours", "[hours]"){
-
-};
-TEST_CASE("adding days", "[days day_of_week day_of_year]"){
-
-};
-TEST_CASE("adding month", "[month]"){
-
-};
-TEST_CASE("adding yeasr", "[years dist_year]"){
-};
-
-
-

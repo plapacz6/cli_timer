@@ -19,11 +19,11 @@ extern "C" {
 struct tm add_tm2nowtm(const struct tm tm1);
 
 /**
- * @brief adds two struct tm structures
+ * @brief adds two struct tm structures regarding second tm as amounts of time
  * 
- * @param tm1 struct tm from <time.h>
- * @param tm2 struct tm
- * @return struct tm sum of tm1 and tm2 according to data-time rules
+ * @param tm1 struct tm from <time.h>  - time to which some amount of time will be added
+ * @param tm2 struct tm  - amount of time
+ * @return struct tm with time being time from tm1 inceased by amoutn of time expressed in tm2 according to data-time rules
  */
 struct tm add_tm2tm(const struct tm tm1, const struct tm tm2);
 
