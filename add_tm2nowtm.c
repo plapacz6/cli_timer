@@ -8,7 +8,7 @@
 #include "add_tm2nowtm.h"
 
 
-struct tm add_tm2tm(const struct tm tm1, const struct tm tm2){
+struct tm add_tm2tm(const struct tm tm1, const struct tmA tm2){
   struct tm tm3 = tm2;
 
   tm3.tm_sec += tm1.tm_sec;
@@ -74,7 +74,7 @@ struct tm add_tm2tm(const struct tm tm1, const struct tm tm2){
   return tm3;
 }
 
-struct tm add_tm2nowtm(const struct tm tm1){
+struct tm add_tm2nowtm(const struct tmA tm2){
   time_t now;
   
   time(&now);  

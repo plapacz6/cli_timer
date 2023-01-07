@@ -9,5 +9,8 @@
 extern char *optarg;
 extern int optind, optopt;
 int show_pause_menu();
+
+
+
 /****************************************************/
 #endif // CLI_TIMER_H
