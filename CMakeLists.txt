@@ -10,8 +10,8 @@ set_property(TARGET fill_in_tm_from_str_o  PROPERTY C_STANDARD 99)
 
 add_executable(cli_timer cli_timer.c)
 set_property(TARGET cli_timer PROPERTY C_STANDARD 99)
-target_link_libraries(cli_timer PRIVATE $<TARGET_OBJECTS:add_tm2tm_o)
-target_link_libraries(cli_timer PRIVATE $<TARGET_OBJECTS:fill_in_tm_from_str_o)
+target_link_libraries(cli_timer PRIVATE $<TARGET_OBJECTS:add_tm2nowtm_o>)
+target_link_libraries(cli_timer PRIVATE $<TARGET_OBJECTS:fill_in_tm_from_str_o>)
 
 add_subdirectory(./tests)
 

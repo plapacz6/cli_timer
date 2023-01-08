@@ -116,7 +116,7 @@ int main(int argc, char **argv){
         "alarm has been set on:", asctime(&alarm_tm));
       } 
       double interval = difftime(mktime(&alarm_tm), time(NULL) ); //???
-      fprintf(stdout, "%s %d %s\n", "sleeping for", interval, " miliseconds");
+      fprintf(stdout, "%s %g %s\n", "sleeping for", interval, " miliseconds");
       sleep((time_t)interval);
       fprintf(stdout, "%s\n", "ALARM, ALARM, ALARM !!!");
       return 0;
