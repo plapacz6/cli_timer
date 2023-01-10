@@ -17,12 +17,12 @@ extern "C" {
  */
  typedef struct tmA {
   
-  int tm_isdst; /**<- calcualted*/
-  int tm_yday;  /**<- calcualted*/
-  int tm_wday;  /**<- calcualted*/
-  int tm_year;    /**<- editable*/
-  int tm_mon;     /**<- editable*/
-  int tm_mday;    /**<- editable*/
+  // int tm_isdst; /**<- calcualted*/
+  // int tm_yday;  /**<- calcualted*/
+  // int tm_wday;  /**<- calcualted*/
+  // int tm_year;    /**<- editable*/
+  // int tm_mon;     /**<- editable*/
+  int tm_day;    /**<- editable*/
   int tm_hour;    /**<- editable*/
   int tm_min;     /**<- editable*/
   int tm_sec;     /**<- editable*/
